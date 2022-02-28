@@ -54,3 +54,43 @@ Widget cardRecentlyAdd() {
     ),
   );
 }
+
+Widget textField(
+    {String? textHint,
+    TextEditingController? controller,
+    bool? enabled,
+    bool? isNumber}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.only(top: 5.0),
+        child: Text("$textHint"),
+      ),
+      Container(
+        height: 50.0,
+        margin: EdgeInsets.only(top: 5.0),
+        padding: EdgeInsets.only(left: 10.0, right: 10.0),
+        decoration: BoxDecoration(
+          color: Colors.grey[100],
+          border: Border.all(color: Colors.grey, width: 1),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Center(
+          child: TextFormField(
+              keyboardType:
+                  isNumber == null ? TextInputType.text : TextInputType.number,
+              enabled: enabled == null ? true : enabled,
+              controller: controller,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  LineIcons.search,
+                  color: Colors.blue[900],
+                ),
+                border: InputBorder.none,
+              )),
+        ),
+      )
+    ],
+  );
+}
