@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
 class ProfilScreen extends StatefulWidget {
   const ProfilScreen({Key? key}) : super(key: key);
@@ -11,40 +12,160 @@ class _ProfilScreenState extends State<ProfilScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        child: Stack(
+      body: SingleChildScrollView(
+        child: Column(
           children: [
-            Positioned(
-              top: 0.0,
-              child: Container(
-                height: MediaQuery.of(context).size.height / 1.8,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.deepOrangeAccent,
-              ),
-            ),
-            Positioned(
-              bottom: 0.0,
-              child: ClipPath(
-                clipper: CustomShapeDetail(),
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 1.2,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
+            Container(
+              height: MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).padding.top,
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 0.0,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 1.8,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.deepOrangeAccent,
+                    ),
                   ),
-                ),
+                  Positioned(
+                    bottom: 0.0,
+                    child: ClipPath(
+                      clipper: CustomShapeDetail(),
+                      child: Container(
+                        padding: EdgeInsets.only(top: 300),
+                        height: MediaQuery.of(context).size.height / 1.1,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  elevation: 1,
+                                  child: Container(
+                                    height: 80,
+                                    width: 80,
+                                    padding: EdgeInsets.all(8),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Icon(
+                                          LineIcons.userEdit,
+                                          color: Colors.orange,
+                                          size: 30,
+                                        ),
+                                        Text("Profil")
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  elevation: 1,
+                                  child: Container(
+                                    height: 80,
+                                    width: 80,
+                                    padding: EdgeInsets.all(8),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Icon(
+                                          LineIcons.video,
+                                          color: Colors.orange,
+                                          size: 30,
+                                        ),
+                                        Text("Vidéos")
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  elevation: 1,
+                                  child: Container(
+                                    height: 80,
+                                    width: 80,
+                                    padding: EdgeInsets.all(8),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Icon(
+                                          LineIcons.download,
+                                          color: Colors.orange,
+                                          size: 30,
+                                        ),
+                                        Text("Download")
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Card(
+                              elevation: 1,
+                              child: Container(
+                                height: 150,
+                                width: MediaQuery.of(context).size.width / 1.2,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Icon(
+                                        LineIcons.user,
+                                        // color: Colors.orange,
+                                      ),
+                                      title: Text("Nom de l'utilisateur"),
+                                      subtitle: Text("Moïse Nturubika"),
+                                    ),
+                                    ListTile(
+                                      leading: Icon(
+                                        LineIcons.phone,
+                                        // color: Colors.orange,
+                                      ),
+                                      title: Text("Numero de téléphone"),
+                                      subtitle: Text("+243 975 236 270"),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 110,
+                    left: 110,
+                    child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100)),
+                      child: CircleAvatar(
+                        radius: 70,
+                        backgroundColor: Colors.black,
+                        backgroundImage: AssetImage('assets/images/profil.png'),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
-            Positioned(
-              top: 110,
-              left: 110,
-              child: CircleAvatar(
-                radius: 70,
-                backgroundColor: Colors.black,
-              ),
-            )
           ],
         ),
       ),
@@ -61,7 +182,7 @@ class CustomShapeDetail extends CustomClipper<Path> {
     path.lineTo(0, size.height);
     path.lineTo(size.width, size.height);
     path.lineTo(size.width, 0);
-    path.lineTo(0, 250);
+    path.lineTo(0, 280);
     //path.quadraticBezierTo(size.width / 2, 280, size.width, 390.0 - 200);
     // path.quadraticBezierTo(size.width / 2, 200, size.width, 280.0 - 200);
     // path.lineTo(size.width, 0.0);

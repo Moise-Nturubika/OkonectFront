@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:okonect/ui/media/video_player.dart';
 import 'package:okonect/ui/widgets/delayed_animation.dart';
 import 'package:okonect/ui/widgets/video_widget.dart';
 import 'package:okonect/ui/widgets/widgets.dart';
@@ -127,27 +128,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     cardVideo(
                         title: 'CASA DE PAPEL',
                         category: 'Série',
-                        image: 'assets/images/casa.jpg'),
+                        image: 'assets/images/casa.jpg',
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => VideoScreen()));
+                        }),
                     cardVideo(
                         title: 'SPIDER MAN',
                         category: 'Film',
-                        image: 'assets/images/spiderman.jpg'),
+                        image: 'assets/images/spiderman.jpg',
+                        onPressed: () {}),
                     cardVideo(
                         title: 'GAME OF THRONE',
                         category: 'Série',
-                        image: 'assets/images/got.jpg'),
+                        image: 'assets/images/got.jpg',
+                        onPressed: () {}),
                     cardVideo(
                         title: 'ACHOUR',
                         category: 'Music',
-                        image: 'assets/images/achour.jpg'),
+                        image: 'assets/images/achour.jpg',
+                        onPressed: () {}),
                     cardVideo(
                         title: 'PEAKY BLINDERS',
                         category: 'Série',
-                        image: 'assets/images/peaky.jpg'),
+                        image: 'assets/images/peaky.jpg',
+                        onPressed: () {}),
                     cardVideo(
                         title: 'SNAKE EYES',
                         category: 'Film',
-                        image: 'assets/images/snakeeyes.jpg'),
+                        image: 'assets/images/snakeeyes.jpg',
+                        onPressed: () {}),
                   ],
                 )),
             SizedBox(
