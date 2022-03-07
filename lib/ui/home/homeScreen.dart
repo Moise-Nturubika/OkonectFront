@@ -84,31 +84,33 @@ class _HomeScreenState extends State<HomeScreen> {
             DelayedAnimation(
                 delay: 100,
                 child: Container(
-                    // height: 200,
-                    width: MediaQuery.of(context).size.width / 1.08,
-                    child: CarouselSlider(
-                        items: [
-                          Image.asset('assets/images/fast-furious.jpg'),
-                          Image.asset('assets/images/neptune.jpg'),
-                          Image.asset('assets/images/gijoe.jpg'),
-                          Image.asset('assets/images/underground.jpg'),
-                        ],
-                        options: CarouselOptions(
-                          height: 180,
-                          aspectRatio: 16 / 9,
-                          viewportFraction: 0.8,
-                          initialPage: 0,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: true,
-                          autoPlayInterval: Duration(seconds: 3),
-                          autoPlayAnimationDuration:
-                              Duration(milliseconds: 800),
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          enlargeCenterPage: true,
-                          // onPageChanged: callbackFunction,
-                          scrollDirection: Axis.horizontal,
-                        )))),
+                  // height: 200,
+                  width: MediaQuery.of(context).size.width / 1.08,
+                  child: CarouselSlider(
+                      items: [
+                        Image.asset('assets/images/fast-furious.jpg'),
+                        Image.asset('assets/images/neptune.jpg'),
+                        Image.asset('assets/images/gijoe.jpg'),
+                        Image.asset('assets/images/underground.jpg'),
+                      ],
+                      options: CarouselOptions(
+                        height: 180,
+                        aspectRatio: 16 / 9,
+                        viewportFraction: 0.8,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 3),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        // onPageChanged: callbackFunction,
+                        scrollDirection: Axis.horizontal,
+                      )),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                )),
             SizedBox(
               height: 25,
             ),
