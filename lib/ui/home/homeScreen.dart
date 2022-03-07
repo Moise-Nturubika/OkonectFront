@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:okonect/ui/media/video_player.dart';
+import 'package:okonect/ui/widgets/audio/audio_player.dart';
 import 'package:okonect/ui/widgets/delayed_animation.dart';
 import 'package:okonect/ui/widgets/video_widget.dart';
 import 'package:okonect/ui/widgets/widgets.dart';
@@ -147,7 +148,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: 'ACHOUR',
                         category: 'Music',
                         image: 'assets/images/achour.jpg',
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => AudioScreen()));
+                        }),
                     cardVideo(
                         title: 'PEAKY BLINDERS',
                         category: 'Série',

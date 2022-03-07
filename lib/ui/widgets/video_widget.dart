@@ -32,14 +32,13 @@ Widget cardVideo(
                   width: 100,
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                      // color: Colors.red,
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [Colors.black26, Colors.black]),
                       borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20))),
+                          bottomLeft: Radius.circular(30),
+                          bottomRight: Radius.circular(30))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
