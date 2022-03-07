@@ -24,6 +24,7 @@ dependencies:
   video_player: ^2.2.19
   just_audio: ^0.9.20
   rxdart: ^0.27.3
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:
