@@ -7,18 +7,25 @@ import 'package:okonect/providers/dataProvider.dart';
 import 'dart:core';
 
 class MediaBloc extends Bloc<BlocEvent, BlocState> {
-  MediaBloc() : super(BlocStateUninitialized());
+  MediaBloc() : super(BlocStateUninitialized()) {
+    on<BlocEventMediaFetch>(_onBlocEventMediaFetch);
+  }
   DataApiProvider _apiProvider = new DataApiProvider();
 
-  Stream<BlocState> mapEventToState(BlocEvent event) async* {
-    if (event is BlocEventMediaFetch) {
-      yield BlocStateLoading();
-      try {
-        final data = _apiProvider.fetchAllMedia();
-        yield BlocStateLoaded(data: data);
-      } catch (e) {
-        yield BlocStateError(error: e);
-      }
+  void _onBlocEventMediaFetch(BlocEvent event, Emitter<BlocState> state) {
+    emit(BlocStateLoading());
+    try {
+      final data = _apiProvider.fetchAllMedia();
+      emit(BlocStateLoaded(data: data));
+    } catch (e) {
+      emit(BlocStateError(error: e));
     }
   }
+
+  // @override
+  // Stream<BlocState> mapEventToState(BlocEvent event) async* {
+  //   if (event is BlocEventMediaFetch) {
+
+  //   }
+  // }
 }

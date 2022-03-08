@@ -23,7 +23,7 @@ class BlocStateLoaded extends BlocState {
 }
 
 class BlocStateError extends BlocState {
-  final Exception? error;
+  final dynamic error;
   BlocStateError({@required this.error});
 
   @override
