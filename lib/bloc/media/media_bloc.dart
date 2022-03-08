@@ -6,11 +6,9 @@ class MediaBloc extends Bloc<BlocEvent, BlocState> {
   MediaBloc() : super(BlocStateUninitialized());
   @override
   Stream<BlocState> mapEventToState(BlocEvent event) async* {
-    switch (event) {
-      // case :
-
-      //   break;
-      // default:
+    if (event is BlocEventMediaFetch) {
+      yield BlocStateLoading();
+      
     }
   }
 }

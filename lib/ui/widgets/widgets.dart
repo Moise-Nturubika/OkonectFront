@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icons.dart';
 
 Widget cardCategory({required IconData icon, required String category}) {
@@ -93,4 +94,8 @@ Widget textField(
       )
     ],
   );
+}
+
+showToast({String? msg}) {
+  return Fluttertoast.showToast(msg: "$msg");
 }
