@@ -1,13 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shimmer/shimmer.dart';
 
 Widget cardVideo(
-    {required String title,
-    required String category,
-    required String image,
-    required var onPressed}) {
+    {required String title, String? category, String? image, var onPressed}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: InkWell(
@@ -16,7 +15,29 @@ Widget cardVideo(
         height: 100,
         width: 100,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('$image')),
+          image: DecorationImage(
+            // image: AssetImage('$image')
+            image: image == null || image.isEmpty
+                ? Svg('assets/images/video.svg')
+                : CachedNetworkImageProvider('$image') as ImageProvider,
+            // CachedNetworkImage(
+            //     imageUrl: '$image',
+            //     placeholder: (ctx, url) => Shimmer.fromColors(
+            //       child: Container(
+            //         height: 100,
+            //         width: 100,
+            //         decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(10),
+            //             color: Colors.white),
+            //       ),
+            //       baseColor: Color.fromARGB(255, 231, 230, 230),
+            //       highlightColor: Color.fromARGB(255, 245, 244, 244),
+            //     ),
+            //     errorWidget: (ctx, url, e) => Image(
+            //       image: Svg('assets/images/video.svg'),
+            //     ),
+            //   ) as ImageProvider
+          ),
           borderRadius: BorderRadius.circular(10),
           gradient: LinearGradient(
               begin: Alignment.bottomCenter,
@@ -45,7 +66,9 @@ Widget cardVideo(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        "$title",
+                        title.length <= 12
+                            ? "$title"
+                            : "${title.substring(0, 11)}...",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 10,

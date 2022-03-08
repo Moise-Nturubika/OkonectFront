@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:okonect/models/media/media.dart';
 import 'package:okonect/ui/widgets/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +18,7 @@ class DataApiProvider {
       print(response.body.toString());
       throw Exception('error getting media ');
     }
-    print(response.body.toString());
+    // print(response.body.toString());
 
     final medias = (jsonDecode(response.body) as List)
         .map((json) => Media.fromJson(json))

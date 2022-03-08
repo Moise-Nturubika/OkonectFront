@@ -12,12 +12,16 @@ class MediaBloc extends Bloc<BlocEvent, BlocState> {
   }
   DataApiProvider _apiProvider = new DataApiProvider();
 
-  void _onBlocEventMediaFetch(BlocEvent event, Emitter<BlocState> state) {
+  void _onBlocEventMediaFetch(vent, emit) async {
     emit(BlocStateLoading());
     try {
-      final data = _apiProvider.fetchAllMedia();
+      print("===== BlocStateLoading =====");
+      final data = await _apiProvider.fetchAllMedia();
       emit(BlocStateLoaded(data: data));
+      print("===== BlocStateLoaded =====");
     } catch (e) {
+      print("===== BlocStateError =====");
+      print("Error ====> ${e.toString()}");
       emit(BlocStateError(error: e));
     }
   }
