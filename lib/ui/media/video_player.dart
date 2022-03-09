@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:okonect/models/media/media.dart';
 import 'package:okonect/ui/media/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:okonect/ui/widgets/video_widget.dart';
@@ -8,12 +9,12 @@ import 'package:okonect/ui/widgets/video_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoScreen extends StatefulWidget {
-  // const VideoScreen({
-  //   Key? key,
-  //   this.title = 'Chewie Demo',
-  // }) : super(key: key);
+  const VideoScreen({
+    Key? key,
+    required this.media,
+  }) : super(key: key);
 
-  // final String title;
+  final Media media;
 
   @override
   State<StatefulWidget> createState() {
@@ -40,8 +41,11 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 
   Future<void> initializePlayer() async {
+    print("------------------------------------------------");
+    print("${widget.media.file}");
     _videoPlayerController =
-        VideoPlayerController.asset('assets/video/videoTest.mp4');
+        VideoPlayerController.network('${widget.media.file}');
+    // VideoPlayerController.asset('assets/video/videoTest.mp4');
     await Future.wait([_videoPlayerController.initialize()]);
     _createChewieController();
     setState(() {});
@@ -104,14 +108,21 @@ class _VideoScreenState extends State<VideoScreen> {
                     child: Chewie(
                       controller: _chewieController!,
                     ))
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SpinKitCircle(color: Colors.blue[900]),
-                      SizedBox(height: 20),
-                      Text('Loading...',
-                          style: TextStyle(color: Colors.blue[900])),
-                    ],
+                : Container(
+                    height: 250,
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.grey[200],
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SpinKitCircle(color: Colors.blue[900]),
+                          SizedBox(height: 20),
+                          Text('Loading...',
+                              style: TextStyle(color: Colors.blue[900])),
+                        ],
+                      ),
+                    ),
                   ),
           ),
         ),
@@ -126,7 +137,9 @@ class _VideoScreenState extends State<VideoScreen> {
                   height: 15,
                 ),
                 Text(
-                  "Spider Man : No far from home",
+                  widget.media.category?.id == 2
+                      ? "${widget.media.auteur} - ${widget.media.title}"
+                      : "${widget.media.title}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 SizedBox(
@@ -138,7 +151,7 @@ class _VideoScreenState extends State<VideoScreen> {
                     SizedBox(
                       width: 10,
                     ),
-                    Text("Film")
+                    Text("${widget.media.category?.designation}")
                   ],
                 ),
                 SizedBox(
@@ -151,7 +164,7 @@ class _VideoScreenState extends State<VideoScreen> {
                           fontWeight: FontWeight.w100,
                         )),
                     SizedBox(width: 8),
-                    Text("Marvel Universe")
+                    Text("${widget.media.auteur}")
                   ],
                 ),
                 SizedBox(
@@ -164,7 +177,7 @@ class _VideoScreenState extends State<VideoScreen> {
                           fontWeight: FontWeight.w100,
                         )),
                     SizedBox(width: 8),
-                    Text("Moussa Nturubika")
+                    Text("${widget.media.client?.fullname}")
                   ],
                 ),
                 SizedBox(
@@ -177,7 +190,7 @@ class _VideoScreenState extends State<VideoScreen> {
                           fontWeight: FontWeight.w100,
                         )),
                     SizedBox(width: 8),
-                    Text("2022-01-14 13:06:32")
+                    Text("${widget.media.dateAjout?.substring(0, 19)}")
                   ],
                 ),
                 Divider(
@@ -198,39 +211,39 @@ class _VideoScreenState extends State<VideoScreen> {
                       scrollDirection: Axis.horizontal,
                       // children: List.generate(5, (index) => cardVideo()),
                       children: [
-                        cardVideo(
-                            title: 'CASA DE PAPEL',
-                            category: 'Série',
-                            image: 'assets/images/casa.jpg',
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => VideoScreen()));
-                            }),
-                        cardVideo(
-                            title: 'SPIDER MAN',
-                            category: 'Film',
-                            image: 'assets/images/spiderman.jpg',
-                            onPressed: () {}),
-                        cardVideo(
-                            title: 'GAME OF THRONE',
-                            category: 'Série',
-                            image: 'assets/images/got.jpg',
-                            onPressed: () {}),
-                        cardVideo(
-                            title: 'ACHOUR',
-                            category: 'Music',
-                            image: 'assets/images/achour.jpg',
-                            onPressed: () {}),
-                        cardVideo(
-                            title: 'PEAKY BLINDERS',
-                            category: 'Série',
-                            image: 'assets/images/peaky.jpg',
-                            onPressed: () {}),
-                        cardVideo(
-                            title: 'SNAKE EYES',
-                            category: 'Film',
-                            image: 'assets/images/snakeeyes.jpg',
-                            onPressed: () {}),
+                        // cardVideo(
+                        //     title: 'CASA DE PAPEL',
+                        //     category: 'Série',
+                        //     image: 'assets/images/casa.jpg',
+                        //     onPressed: () {
+                        //       Navigator.of(context).push(MaterialPageRoute(
+                        //           builder: (ctx) => VideoScreen()));
+                        //     }),
+                        // cardVideo(
+                        //     title: 'SPIDER MAN',
+                        //     category: 'Film',
+                        //     image: 'assets/images/spiderman.jpg',
+                        //     onPressed: () {}),
+                        // cardVideo(
+                        //     title: 'GAME OF THRONE',
+                        //     category: 'Série',
+                        //     image: 'assets/images/got.jpg',
+                        //     onPressed: () {}),
+                        // cardVideo(
+                        //     title: 'ACHOUR',
+                        //     category: 'Music',
+                        //     image: 'assets/images/achour.jpg',
+                        //     onPressed: () {}),
+                        // cardVideo(
+                        //     title: 'PEAKY BLINDERS',
+                        //     category: 'Série',
+                        //     image: 'assets/images/peaky.jpg',
+                        //     onPressed: () {}),
+                        // cardVideo(
+                        //     title: 'SNAKE EYES',
+                        //     category: 'Film',
+                        //     image: 'assets/images/snakeeyes.jpg',
+                        //     onPressed: () {}),
                       ],
                     )),
               ],

@@ -8,7 +8,7 @@ class DataApiProvider {
   final http.Client httpClient = http.Client();
 
   Future<List<Media>> fetchAllMedia() async {
-    String url = Uri.encodeFull('$mainUrl/media/show/all');
+    String url = Uri.encodeFull('$mainUrl/media/show/top');
     Future.delayed(new Duration(milliseconds: 5));
     final response = await this.httpClient.get(
       Uri.parse(url),

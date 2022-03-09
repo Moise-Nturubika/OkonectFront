@@ -18,7 +18,7 @@ Widget cardVideo(
           image: DecorationImage(
             // image: AssetImage('$image')
             image: image == null || image.isEmpty
-                ? Svg('assets/images/video.svg')
+                ? AssetImage('assets/images/video.png')
                 : CachedNetworkImageProvider('$image') as ImageProvider,
             // CachedNetworkImage(
             //     imageUrl: '$image',
@@ -38,6 +38,9 @@ Widget cardVideo(
             //     ),
             //   ) as ImageProvider
           ),
+          border: image == null
+              ? Border.all(color: Color.fromARGB(255, 207, 205, 205))
+              : null,
           borderRadius: BorderRadius.circular(10),
           gradient: LinearGradient(
               begin: Alignment.bottomCenter,

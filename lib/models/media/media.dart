@@ -30,7 +30,7 @@ Media _$MediaFromJson(Map<String, dynamic> json) {
       id: json['id'] as int,
       title: json['title'] as String,
       auteur: json['auteur'] as String,
-      poster: json['poster'] as String,
+      poster: json['poster'] == null ? null : json['poster'] as String,
       file: json['file'] as String,
       dateAjout: json['dateAjout'] as String,
       category: Category.fromJson(json['category']),

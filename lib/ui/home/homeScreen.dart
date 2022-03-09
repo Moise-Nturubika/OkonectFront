@@ -198,8 +198,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                     if (state is BlocStateLoaded) {
-                      print("=====================================");
-                      print(state.data);
                       return ListView(
                         scrollDirection: Axis.horizontal,
                         children: List.generate(
@@ -209,7 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 category:
                                     state.data[index].category.designation,
                                 image: state.data[index].poster,
-                                onPressed: () {})),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (ctx) => VideoScreen(
+                                            media: state.data[index],
+                                          )));
+                                })),
                       );
                     }
                     return Container();
