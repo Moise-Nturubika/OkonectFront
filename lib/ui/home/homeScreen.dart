@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:okonect/bloc/bloc_event.dart';
 import 'package:okonect/bloc/block_state.dart';
@@ -28,6 +29,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late MediaBloc _bloc;
+  late MediaBloc _category;
   late Media _media;
 
   @override
@@ -38,7 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _init() {
     _bloc = new MediaBloc();
+    _category = new MediaBloc();
     _bloc.add(BlocEventMediaFetch());
+    _category.add(BlocEventCategoryFetch());
     _media = new Media(
       auteur: "Marvel",
       category: new Category(id: 1, designation: "Film"),
@@ -308,14 +312,75 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Container(
               height: 50,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  cardCategory(icon: LineIcons.film, category: "Film"),
-                  cardCategory(icon: LineIcons.music, category: "Music"),
-                  cardCategory(icon: LineIcons.video, category: "Vidéo"),
-                  cardCategory(icon: LineIcons.pdfFile, category: "Pdf"),
-                ],
+              child: BlocBuilder<MediaBloc, BlocState>(
+                bloc: _category,
+                builder: (context, state) {
+                  if (state is BlocStateUninitialized ||
+                      state is BlocStateLoading) {
+                    return ListView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children:
+                          List.generate(4, (index) => cardShimmerCategory()),
+                    );
+                  }
+                  if (state is BlocStateError) {
+                    return Center(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            AvatarGlow(
+                              glowColor: Colors.blue,
+                              endRadius: 50.0,
+                              duration: Duration(milliseconds: 2000),
+                              repeat: true,
+                              showTwoGlows: true,
+                              repeatPauseDuration: Duration(milliseconds: 100),
+                              child: Icon(LineIcons.wifi),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("No internet access")
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                  if (state is BlocStateLoaded) {
+                    return ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(
+                          state.data.length,
+                          (index) => cardCategory(
+                              icon: state.data[index].designation
+                                      .toString()
+                                      .toLowerCase()
+                                      .contains("film")
+                                  ? LineIcons.film
+                                  : state.data[index].designation
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains("music")
+                                      ? LineIcons.music
+                                      : state.data[index].designation
+                                              .toString()
+                                              .toLowerCase()
+                                              .contains("video")
+                                          ? LineIcons.video
+                                          : LineIcons.pdfFile,
+                              category: state.data[index].designation),
+                        )
+                        // [
+                        //   cardCategory(icon: LineIcons.film, category: "Film"),
+                        //   cardCategory(icon: LineIcons.music, category: "Music"),
+                        //   cardCategory(icon: LineIcons.video, category: "Vidéo"),
+                        //   cardCategory(icon: LineIcons.pdfFile, category: "Pdf"),
+                        // ],
+                        );
+                  }
+                  return Container();
+                },
               ),
             ),
             SizedBox(

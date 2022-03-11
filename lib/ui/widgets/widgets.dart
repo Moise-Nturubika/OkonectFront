@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:shimmer/shimmer.dart';
 
 Widget cardCategory({required IconData icon, required String category}) {
   return GestureDetector(
@@ -24,6 +25,25 @@ Widget cardCategory({required IconData icon, required String category}) {
                 Text("$category")
               ],
             )),
+      ),
+    ),
+  );
+}
+
+Widget cardShimmerCategory() {
+  return Container(
+    padding: EdgeInsets.only(right: 10),
+    child: Card(
+      elevation: 1,
+      child: Shimmer.fromColors(
+        baseColor: Color.fromARGB(255, 231, 230, 230),
+        highlightColor: Color.fromARGB(255, 245, 244, 244),
+        child: Container(
+          padding: EdgeInsets.only(left: 8, right: 8),
+          height: 50,
+          width: 100,
+          color: Colors.white,
+        ),
       ),
     ),
   );
@@ -93,6 +113,33 @@ Widget textField(
         ),
       )
     ],
+  );
+}
+
+Widget listTileRecentAdd({required String title, required String category}) {
+  return ListTile(
+    leading: Container(
+      height: 60,
+      width: 60,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.orange)),
+      child: Icon(
+        category.toLowerCase().contains("film")
+            ? LineIcons.film
+            : category.toLowerCase().contains("music")
+                ? LineIcons.music
+                : category.toLowerCase().contains("video")
+                    ? LineIcons.video
+                    : LineIcons.pdfFile,
+        color: Colors.black,
+      ),
+    ),
+    title: Text(
+      "$title",
+      style: TextStyle(fontWeight: FontWeight.bold),
+    ),
+    subtitle: Text("$category"),
   );
 }
 
