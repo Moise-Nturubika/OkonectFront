@@ -14,3 +14,8 @@ class BlocEventCategoryFetch extends BlocEvent {
   @override
   String toString() => 'BlocEventCategoryFetch';
 }
+
+class BlocEventRecentFetch extends BlocEvent {
+  @override
+  String toString() => 'BlocEventRecentFetch';
+}

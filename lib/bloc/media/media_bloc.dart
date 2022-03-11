@@ -10,6 +10,7 @@ class MediaBloc extends Bloc<BlocEvent, BlocState> {
   MediaBloc() : super(BlocStateUninitialized()) {
     on<BlocEventMediaFetch>(_onBlocEventMediaFetch);
     on<BlocEventCategoryFetch>(_onBlocEventCategoryFetch);
+    on<BlocEventRecentFetch>(_onBlocEventMediaFetch);
   }
   DataApiProvider _apiProvider = new DataApiProvider();
 
@@ -28,6 +29,17 @@ class MediaBloc extends Bloc<BlocEvent, BlocState> {
     emit(BlocStateLoading());
     try {
       final data = await _apiProvider.fetchAllCategory();
+      emit(BlocStateLoaded(data: data));
+    } catch (e) {
+      print("Error ====> ${e.toString()}");
+      emit(BlocStateError(error: e));
+    }
+  }
+
+  void _onBlocEventRecentFetch(event, emit) async {
+    emit(BlocStateLoading());
+    try {
+      final data = await _apiProvider.fetchRecentMedia();
       emit(BlocStateLoaded(data: data));
     } catch (e) {
       print("Error ====> ${e.toString()}");
