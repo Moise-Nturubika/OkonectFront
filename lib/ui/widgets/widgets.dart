@@ -143,6 +143,40 @@ Widget listTileRecentAdd({required String title, required String category}) {
   );
 }
 
+Widget listShimmerRecentAdd() {
+  return ListTile(
+    leading: Shimmer.fromColors(
+      baseColor: Color.fromARGB(255, 231, 230, 230),
+      highlightColor: Color.fromARGB(255, 245, 244, 244),
+      child: Container(
+        height: 60,
+        width: 60,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.orange)),
+      ),
+    ),
+    title: Shimmer.fromColors(
+      baseColor: Color.fromARGB(255, 231, 230, 230),
+      highlightColor: Color.fromARGB(255, 245, 244, 244),
+      child: Container(
+        height: 15,
+        width: 100,
+        color: Colors.white,
+      ),
+    ),
+    subtitle: Shimmer.fromColors(
+      baseColor: Color.fromARGB(255, 231, 230, 230),
+      highlightColor: Color.fromARGB(255, 245, 244, 244),
+      child: Container(
+        height: 12,
+        color: Colors.white,
+      ),
+    ),
+  );
+}
+
 showToast({String? msg}) {
   return Fluttertoast.showToast(msg: "$msg");
 }

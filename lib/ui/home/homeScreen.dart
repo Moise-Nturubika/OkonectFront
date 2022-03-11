@@ -395,60 +395,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Column(
               children: [
-                ListTile(
-                  leading: Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.orange)),
-                    child: Icon(
-                      LineIcons.film,
-                      color: Colors.black,
-                    ),
-                  ),
-                  title: Text(
-                    "Spider Man: No far from home",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text("Film"),
-                ),
-                ListTile(
-                  leading: Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.orange)),
-                    child: Icon(
-                      LineIcons.music,
-                      color: Colors.black,
-                    ),
-                  ),
-                  title: Text(
-                    "InnosB : Olandi",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text("Music"),
-                ),
-                ListTile(
-                  leading: Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.orange)),
-                    child: Icon(
-                      LineIcons.video,
-                      color: Colors.black,
-                    ),
-                  ),
-                  title: Text(
-                    "Fally Ipupa: Canne à sucre",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text("Vidéo"),
-                ),
+                listTileRecentAdd(
+                    category: 'Film', title: "Spider Man: No far from home"),
+                listShimmerRecentAdd(),
+                listTileRecentAdd(category: 'Music', title: "InnosB : Olandi"),
+                listTileRecentAdd(
+                    category: 'video', title: "Fally Ipupa: Canne à sucre"),
               ],
             )
           ],
