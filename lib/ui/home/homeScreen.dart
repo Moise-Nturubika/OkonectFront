@@ -7,6 +7,9 @@ import 'package:line_icons/line_icons.dart';
 import 'package:okonect/bloc/bloc_event.dart';
 import 'package:okonect/bloc/block_state.dart';
 import 'package:okonect/bloc/media/media_bloc.dart';
+import 'package:okonect/models/category/category.dart';
+import 'package:okonect/models/client/client.dart';
+import 'package:okonect/models/media/media.dart';
 import 'package:okonect/ui/media/video_player.dart';
 import 'package:okonect/ui/media/vlc_player.dart';
 import 'package:okonect/ui/widgets/audio/audio_player.dart';
@@ -25,6 +28,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late MediaBloc _bloc;
+  late Media _media;
 
   @override
   void initState() {
@@ -35,6 +39,19 @@ class _HomeScreenState extends State<HomeScreen> {
   _init() {
     _bloc = new MediaBloc();
     _bloc.add(BlocEventMediaFetch());
+    _media = new Media(
+      auteur: "Marvel",
+      category: new Category(id: 1, designation: "Film"),
+      dateAjout: "2021-01-01 00:00:00",
+      title: "Underground 6",
+      client: new Client(
+        fullname: "Moise Nturubika",
+        phone: "+243 975 236 270",
+      ),
+      file:
+          "http://192.168.5.29:8000/media/video/Clean_Bandit_-_Rockabye_ft._Sean_Paul__Anne-Marie_Official_Video_-_YouTube_360p.mp4",
+      poster: "http://192.168.5.29:8000/media/poster/video/spiderman.jpg",
+    );
   }
 
   @override
@@ -109,10 +126,42 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width / 1.08,
                   child: CarouselSlider(
                       items: [
-                        Image.asset('assets/images/fast-furious.jpg'),
-                        Image.asset('assets/images/neptune.jpg'),
-                        Image.asset('assets/images/gijoe.jpg'),
-                        Image.asset('assets/images/underground.jpg'),
+                        InkWell(
+                          child: Image.asset('assets/images/fast-furious.jpg'),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (ctx) => VideoScreen(
+                                      media: _media,
+                                    )));
+                          },
+                        ),
+                        InkWell(
+                          child: Image.asset('assets/images/neptune.jpg'),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (ctx) => VideoScreen(
+                                      media: _media,
+                                    )));
+                          },
+                        ),
+                        InkWell(
+                          child: Image.asset('assets/images/gijoe.jpg'),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (ctx) => VideoScreen(
+                                      media: _media,
+                                    )));
+                          },
+                        ),
+                        InkWell(
+                          child: Image.asset('assets/images/underground.jpg'),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (ctx) => VideoScreen(
+                                      media: _media,
+                                    )));
+                          },
+                        ),
                       ],
                       options: CarouselOptions(
                         height: 180,
