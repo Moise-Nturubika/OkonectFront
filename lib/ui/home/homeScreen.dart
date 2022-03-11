@@ -8,11 +8,13 @@ import 'package:okonect/bloc/bloc_event.dart';
 import 'package:okonect/bloc/block_state.dart';
 import 'package:okonect/bloc/media/media_bloc.dart';
 import 'package:okonect/ui/media/video_player.dart';
+import 'package:okonect/ui/media/vlc_player.dart';
 import 'package:okonect/ui/widgets/audio/audio_player.dart';
 import 'package:okonect/ui/widgets/delayed_animation.dart';
 import 'package:okonect/ui/widgets/video_widget.dart';
 import 'package:okonect/ui/widgets/widgets.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -212,7 +214,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                       builder: (ctx) => VideoScreen(
                                             media: state.data[index],
                                           )));
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //     builder: (ctx) => VlcPlayer()));
                                 })),
+                      );
+                    }
+
+                    if (state is BlocStateError) {
+                      return Center(
+                        child: Container(
+                          child: Column(
+                            children: [
+                              AvatarGlow(
+                                glowColor: Colors.blue,
+                                endRadius: 50.0,
+                                duration: Duration(milliseconds: 2000),
+                                repeat: true,
+                                showTwoGlows: true,
+                                repeatPauseDuration:
+                                    Duration(milliseconds: 100),
+                                child: Icon(LineIcons.wifi),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text("No internet access")
+                            ],
+                          ),
+                        ),
                       );
                     }
                     return Container();

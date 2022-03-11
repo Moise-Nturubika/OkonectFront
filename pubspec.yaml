@@ -30,6 +30,8 @@ dependencies:
   flutter_svg: ^1.0.3
   flutter_svg_provider: ^1.0.3
   cached_network_image: ^3.2.0
+  avatar_glow: ^2.0.2
+  # flutter_vlc_player: ^7.0.1
 
 dev_dependencies:
   flutter_test:
