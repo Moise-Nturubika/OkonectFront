@@ -3,15 +3,19 @@
 // directory as this example in the GitHub repository.
 
 import 'package:audio_session/audio_session.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:okonect/models/media/media.dart';
 import 'package:okonect/ui/widgets/audio/common.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AudioScreen extends StatefulWidget {
+  final Media media;
+  AudioScreen({required this.media});
   @override
   _AudioScreenState createState() => _AudioScreenState();
 }
@@ -41,8 +45,10 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
     });
     // Try to load audio from a source and catch any errors.
     try {
-      await _player.setAudioSource(AudioSource.uri(Uri.parse(
-          "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3")));
+      await _player
+          .setAudioSource(AudioSource.uri(Uri.parse("${widget.media.file}")));
+      // await _player.setAudioSource(AudioSource.uri(Uri.parse(
+      // "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3")));
     } catch (e) {
       print("Error loading audio source: $e");
     }
@@ -93,27 +99,34 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height / 1.5,
-                      alignment: Alignment.center,
-                      child: Container(
-                        height: 300,
-                        width: 300,
-                        child: Image.asset('assets/images/achour.jpg'),
-                      ),
-                      // Container(
-                      //     height: 200,
-                      //     width: 200,
-                      //     decoration: BoxDecoration(
-                      //         borderRadius: BorderRadius.circular(100),
-                      //         border:
-                      //             Border.all(color: Colors.white, width: 8)),
-                      //     child:
-                      //     Icon(LineIcons.music,
-                      //         size: 100, color: Colors.white),
-                      //     ),
-                    ),
-                    Text("Innos'B - Abed achour",
+                    widget.media.poster != null
+                        ? Container(
+                            height: MediaQuery.of(context).size.height / 1.5,
+                            alignment: Alignment.center,
+                            child: Container(
+                              height: 300,
+                              width: 300,
+                              child: CachedNetworkImage(
+                                imageUrl: "${widget.media.poster}",
+                                placeholder: (ctx, url) => Icon(LineIcons.music,
+                                    size: 100, color: Colors.white),
+                              ),
+                            ))
+                        : Container(
+                            height: MediaQuery.of(context).size.height / 1.5,
+                            alignment: Alignment.center,
+                            child: Container(
+                              height: 200,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(
+                                      color: Colors.white, width: 8)),
+                              child: Icon(LineIcons.music,
+                                  size: 100, color: Colors.white),
+                            ),
+                          ),
+                    Text("${widget.media.auteur} - ${widget.media.title}",
                         style: TextStyle(color: Colors.white, fontSize: 18)),
                     StreamBuilder<PositionData>(
                       stream: _positionDataStream,

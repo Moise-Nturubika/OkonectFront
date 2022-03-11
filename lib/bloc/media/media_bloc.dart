@@ -10,7 +10,7 @@ class MediaBloc extends Bloc<BlocEvent, BlocState> {
   MediaBloc() : super(BlocStateUninitialized()) {
     on<BlocEventMediaFetch>(_onBlocEventMediaFetch);
     on<BlocEventCategoryFetch>(_onBlocEventCategoryFetch);
-    on<BlocEventRecentFetch>(_onBlocEventMediaFetch);
+    on<BlocEventRecentFetch>(_onBlocEventRecentFetch);
   }
   DataApiProvider _apiProvider = new DataApiProvider();
 

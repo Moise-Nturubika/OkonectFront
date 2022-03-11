@@ -447,21 +447,36 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 200,
                       child: ListView(
                           children: List.generate(
-                              state.data.length,
-                              (index) => listTileRecentAdd(
-                                  title: state.data[index].category.designation
-                                              .toString()
-                                              .toLowerCase()
-                                              .contains('music') ||
-                                          state.data[index].category.designation
-                                              .toString()
-                                              .toLowerCase()
-                                              .contains('video')
-                                      ? "${state.data[index].auteur} : ${state.data[index].title}"
-                                      : state.data[index].title,
-                                  category: state
-                                      .data[index].category.designation
-                                      .toString()))
+                        state.data.length,
+                        (index) => listTileRecentAdd(
+                            title: state.data[index].category.designation
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains('music') ||
+                                    state.data[index].category.designation
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains('video')
+                                ? "${state.data[index].auteur} : ${state.data[index].title}"
+                                : state.data[index].title,
+                            category: state.data[index].category.designation
+                                .toString(),
+                            onPressed: () {
+                              if (state.data[index].category.designation
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains('music')) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (ctx) => AudioScreen(
+                                          media: state.data[index],
+                                        )));
+                              } else {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (ctx) =>
+                                        VideoScreen(media: state.data[index])));
+                              }
+                            }),
+                      )
                           // [
                           //   listTileRecentAdd(
                           //       category: 'Film',

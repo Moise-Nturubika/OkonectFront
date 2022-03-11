@@ -116,7 +116,8 @@ Widget textField(
   );
 }
 
-Widget listTileRecentAdd({required String title, required String category}) {
+Widget listTileRecentAdd(
+    {required String title, required String category, required var onPressed}) {
   return ListTile(
     leading: Container(
       height: 60,
@@ -140,6 +141,7 @@ Widget listTileRecentAdd({required String title, required String category}) {
       style: TextStyle(fontWeight: FontWeight.bold),
     ),
     subtitle: Text("$category"),
+    onTap: onPressed,
   );
 }
 
