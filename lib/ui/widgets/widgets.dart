@@ -3,8 +3,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shimmer/shimmer.dart';
 
-Widget cardCategory({required IconData icon, required String category}) {
+Widget cardCategory(
+    {required IconData icon,
+    required String category,
+    required var onPressed}) {
   return GestureDetector(
+    onTap: onPressed,
     child: Container(
       padding: EdgeInsets.only(right: 10),
       child: Card(
@@ -17,7 +21,7 @@ Widget cardCategory({required IconData icon, required String category}) {
               children: [
                 Icon(
                   icon,
-                  color: Colors.orange,
+                  color: Colors.deepOrange,
                 ),
                 SizedBox(
                   width: 10,
@@ -57,7 +61,7 @@ Widget cardRecentlyAdd() {
           child: Container(
             height: 60,
             width: 60,
-            color: Colors.orange,
+            color: Colors.deepOrange,
           ),
         ),
         SizedBox(),
@@ -94,7 +98,8 @@ Widget textField(
         padding: EdgeInsets.only(left: 10.0, right: 10.0),
         decoration: BoxDecoration(
           color: Colors.grey[100],
-          border: Border.all(color: Colors.grey, width: 1),
+          border:
+              Border.all(color: Color.fromARGB(255, 212, 212, 212), width: 0.4),
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: Center(
@@ -124,7 +129,7 @@ Widget listTileRecentAdd(
       width: 60,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.orange)),
+          border: Border.all(color: Colors.deepOrange)),
       child: Icon(
         category.toLowerCase().contains("film")
             ? LineIcons.film
@@ -156,7 +161,7 @@ Widget listShimmerRecentAdd() {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.orange)),
+            border: Border.all(color: Colors.deepOrange)),
       ),
     ),
     title: Shimmer.fromColors(

@@ -60,7 +60,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                       children: [
                                         Icon(
                                           LineIcons.userEdit,
-                                          color: Colors.orange,
+                                          color: Colors.deepOrange,
                                           size: 30,
                                         ),
                                         Text("Profil")
@@ -82,7 +82,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                       children: [
                                         Icon(
                                           LineIcons.video,
-                                          color: Colors.orange,
+                                          color: Colors.deepOrange,
                                           size: 30,
                                         ),
                                         Text("Vidéos")
@@ -104,7 +104,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                       children: [
                                         Icon(
                                           LineIcons.download,
-                                          color: Colors.orange,
+                                          color: Colors.deepOrange,
                                           size: 30,
                                         ),
                                         Text("Download")
@@ -127,7 +127,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                     ListTile(
                                       leading: Icon(
                                         LineIcons.user,
-                                        // color: Colors.orange,
+                                        // color: Colors.deepOrange,
                                       ),
                                       title: Text("Nom de l'utilisateur"),
                                       subtitle: Text("Moïse Nturubika"),
@@ -135,7 +135,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                     ListTile(
                                       leading: Icon(
                                         LineIcons.phone,
-                                        // color: Colors.orange,
+                                        // color: Colors.deepOrange,
                                       ),
                                       title: Text("Numero de téléphone"),
                                       subtitle: Text("+243 975 236 270"),

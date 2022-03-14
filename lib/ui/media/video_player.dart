@@ -1,6 +1,11 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:chewie/chewie.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:okonect/bloc/bloc_event.dart';
+import 'package:okonect/bloc/block_state.dart';
+import 'package:okonect/bloc/media/media_bloc.dart';
 import 'package:okonect/models/media/media.dart';
 import 'package:okonect/ui/media/theme.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +31,13 @@ class _VideoScreenState extends State<VideoScreen> {
   late VideoPlayerController _videoPlayerController;
   // late VideoPlayerController _videoPlayerController2;
   ChewieController? _chewieController;
+  late MediaBloc _bloc;
 
   @override
   void initState() {
     super.initState();
     initializePlayer();
+    _init();
   }
 
   @override
@@ -38,6 +45,12 @@ class _VideoScreenState extends State<VideoScreen> {
     _videoPlayerController.dispose();
     _chewieController?.dispose();
     super.dispose();
+  }
+
+  _init() {
+    _bloc = new MediaBloc();
+    _bloc.add(
+        BlocEventSameCategoryFetch(category: "${widget.media.category?.id}"));
   }
 
   Future<void> initializePlayer() async {
@@ -147,7 +160,7 @@ class _VideoScreenState extends State<VideoScreen> {
                 ),
                 Row(
                   children: [
-                    Icon(LineIcons.film, color: Colors.orange),
+                    Icon(LineIcons.film, color: Colors.deepOrange),
                     SizedBox(
                       width: 10,
                     ),
@@ -207,44 +220,97 @@ class _VideoScreenState extends State<VideoScreen> {
                 Container(
                     height: 150,
                     width: double.infinity,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      // children: List.generate(5, (index) => cardVideo()),
-                      children: [
-                        // cardVideo(
-                        //     title: 'CASA DE PAPEL',
-                        //     category: 'Série',
-                        //     image: 'assets/images/casa.jpg',
-                        //     onPressed: () {
-                        //       Navigator.of(context).push(MaterialPageRoute(
-                        //           builder: (ctx) => VideoScreen()));
-                        //     }),
-                        // cardVideo(
-                        //     title: 'SPIDER MAN',
-                        //     category: 'Film',
-                        //     image: 'assets/images/spiderman.jpg',
-                        //     onPressed: () {}),
-                        // cardVideo(
-                        //     title: 'GAME OF THRONE',
-                        //     category: 'Série',
-                        //     image: 'assets/images/got.jpg',
-                        //     onPressed: () {}),
-                        // cardVideo(
-                        //     title: 'ACHOUR',
-                        //     category: 'Music',
-                        //     image: 'assets/images/achour.jpg',
-                        //     onPressed: () {}),
-                        // cardVideo(
-                        //     title: 'PEAKY BLINDERS',
-                        //     category: 'Série',
-                        //     image: 'assets/images/peaky.jpg',
-                        //     onPressed: () {}),
-                        // cardVideo(
-                        //     title: 'SNAKE EYES',
-                        //     category: 'Film',
-                        //     image: 'assets/images/snakeeyes.jpg',
-                        //     onPressed: () {}),
-                      ],
+                    child: BlocBuilder<MediaBloc, BlocState>(
+                      bloc: _bloc,
+                      builder: (context, state) {
+                        if (state is BlocStateUninitialized ||
+                            state is BlocStateLoading) {
+                          return ListView(
+                            physics: BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            children:
+                                List.generate(4, (index) => cardShimmerVideo()),
+                          );
+                        }
+                        if (state is BlocStateError) {
+                          return Center(
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  AvatarGlow(
+                                    glowColor: Colors.blue,
+                                    endRadius: 50.0,
+                                    duration: Duration(milliseconds: 2000),
+                                    repeat: true,
+                                    showTwoGlows: true,
+                                    repeatPauseDuration:
+                                        Duration(milliseconds: 100),
+                                    child: Icon(LineIcons.wifi),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("No internet access")
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                        if (state is BlocStateLoaded) {
+                          return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: List.generate(
+                                state.data.length,
+                                (index) => cardVideo(
+                                    title: state.data[index].title,
+                                    category:
+                                        state.data[index].category.designation,
+                                    image: state.data[index].poster,
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (ctx) => VideoScreen(
+                                                  media: state.data[index])));
+                                    })),
+                            // children: [
+                            // cardVideo(
+                            //     title: 'CASA DE PAPEL',
+                            //     category: 'Série',
+                            //     image: 'assets/images/casa.jpg',
+                            //     onPressed: () {
+                            //       Navigator.of(context).push(MaterialPageRoute(
+                            //           builder: (ctx) => VideoScreen()));
+                            //     }),
+                            // cardVideo(
+                            //     title: 'SPIDER MAN',
+                            //     category: 'Film',
+                            //     image: 'assets/images/spiderman.jpg',
+                            //     onPressed: () {}),
+                            // cardVideo(
+                            //     title: 'GAME OF THRONE',
+                            //     category: 'Série',
+                            //     image: 'assets/images/got.jpg',
+                            //     onPressed: () {}),
+                            // cardVideo(
+                            //     title: 'ACHOUR',
+                            //     category: 'Music',
+                            //     image: 'assets/images/achour.jpg',
+                            //     onPressed: () {}),
+                            // cardVideo(
+                            //     title: 'PEAKY BLINDERS',
+                            //     category: 'Série',
+                            //     image: 'assets/images/peaky.jpg',
+                            //     onPressed: () {}),
+                            // cardVideo(
+                            //     title: 'SNAKE EYES',
+                            //     category: 'Film',
+                            //     image: 'assets/images/snakeeyes.jpg',
+                            //     onPressed: () {}),
+                            // ],
+                          );
+                        }
+                        return Container();
+                      },
                     )),
               ],
             ),

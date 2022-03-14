@@ -13,7 +13,8 @@ import 'package:okonect/models/client/client.dart';
 import 'package:okonect/models/media/media.dart';
 import 'package:okonect/ui/media/video_player.dart';
 import 'package:okonect/ui/media/vlc_player.dart';
-import 'package:okonect/ui/widgets/audio/audio_player.dart';
+import 'package:okonect/ui/media/audio_player.dart';
+import 'package:okonect/ui/search/categorized_screen.dart';
 import 'package:okonect/ui/widgets/delayed_animation.dart';
 import 'package:okonect/ui/widgets/video_widget.dart';
 import 'package:okonect/ui/widgets/widgets.dart';
@@ -80,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CircleAvatar(
-                    backgroundColor: Colors.orange,
+                    backgroundColor: Colors.deepOrange,
                     backgroundImage: AssetImage('assets/images/profil.png'),
                     radius: 30,
                     foregroundColor: Colors.red,
@@ -379,7 +380,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 .contains("video")
                                             ? LineIcons.video
                                             : LineIcons.pdfFile,
-                                category: state.data[index].designation),
+                                category: state.data[index].designation,
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (ctx) => CategoryMedia(
+                                          category: state.data[index])));
+                                }),
                           )
                           // [
                           //   cardCategory(icon: LineIcons.film, category: "Film"),

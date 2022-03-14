@@ -229,7 +229,7 @@ class ControlButtons extends StatelessWidget {
                 margin: EdgeInsets.all(8.0),
                 width: 64.0,
                 height: 64.0,
-                child: SpinKitCircle(color: Colors.orange[800], size: 40),
+                child: SpinKitCircle(color: Colors.deepOrange[800], size: 40),
               );
             } else if (playing != true) {
               return IconButton(
