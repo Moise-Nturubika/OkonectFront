@@ -50,20 +50,20 @@ class MediaBloc extends Bloc<BlocEvent, BlocState> {
 
   void _onBlocEventSameCategoryFetch(event, emit) async {
     emit(BlocStateLoading());
-    try {
-      final data =
-          await _apiProvider.fetchSameCategory(category: event.category);
-      emit(BlocStateLoaded(data: data));
-    } catch (e) {
-      print("Error ====> ${e.toString()}");
-      emit(BlocStateError(error: e));
-    }
+    // try {
+    //   final data =
+    //       await _apiProvider.fetchSameCategory(category: event.category);
+    //   emit(BlocStateLoaded(data: data));
+    // } catch (e) {
+    //   print("Error ====> ${e.toString()}");
+    //   emit(BlocStateError(error: e));
+    // }
   }
 
-  void _onBlocEventSameQuality(event, emit) async {
-    emit(BlocStateLoading());
-    try {} catch (e) {
-      emit(BlocStateError(error: e.toString()));
-    }
-  }
+  // void _onBlocEventSameQuality(event, emit) async {
+  //   emit(BlocStateLoading());
+  //   try {} catch (e) {
+  //     emit(BlocStateError(error: e.toString()));
+  //   }
+  // }
 }

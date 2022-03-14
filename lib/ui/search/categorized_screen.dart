@@ -1,6 +1,11 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:okonect/bloc/bloc_event.dart';
+import 'package:okonect/bloc/block_state.dart';
+import 'package:okonect/bloc/media/media_bloc.dart';
 import 'package:okonect/models/category/category.dart';
 import 'package:okonect/models/media/media.dart';
 import 'package:okonect/ui/widgets/video_widget.dart';
@@ -15,6 +20,19 @@ class CategoryMedia extends StatefulWidget {
 }
 
 class _CategoryMediaState extends State<CategoryMedia> {
+  late MediaBloc _bloc;
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  _init() {
+    _bloc = new MediaBloc();
+    _bloc.add(
+        BlocEventSameCategoryFetch(category: widget.category.id.toString()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,42 +75,88 @@ class _CategoryMediaState extends State<CategoryMedia> {
                     height: MediaQuery.of(context).size.height -
                         MediaQuery.of(context).size.height * 0.25 -
                         50,
+                    padding: EdgeInsets.only(top: 40),
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              cardCategorizedMedia(
-                                  title: "Exemple", category: "Video"),
-                              cardCategorizedMedia(
-                                  title: "Exemple", category: "Video"),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              cardCategorizedMedia(
-                                  title: "Exemple", category: "Video"),
-                              cardCategorizedMedia(
-                                  title: "Exemple", category: "Video"),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              cardCategorizedMedia(
-                                  title: "Exemple", category: "Video"),
-                              cardCategorizedMedia(
-                                  title: "Exemple", category: "Video"),
-                            ],
-                          ),
-                        ],
-                      ),
+                        child: BlocBuilder<MediaBloc, BlocState>(
+                      bloc: _bloc,
+                      builder: (context, state) {
+                        if (state is BlocStateUninitialized ||
+                            state is BlocStateLoading) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height / 2,
+                            child: Column(
+                              children: List.generate(
+                                  2,
+                                  (index) => Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          cardShimmerCategoryMedia(),
+                                          cardShimmerCategoryMedia()
+                                        ],
+                                      )),
+                            ),
+                          );
+                        }
+                        if (state is BlocStateError) {
+                          return Center(
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  AvatarGlow(
+                                    glowColor: Colors.blue,
+                                    endRadius: 50.0,
+                                    duration: Duration(milliseconds: 2000),
+                                    repeat: true,
+                                    showTwoGlows: true,
+                                    repeatPauseDuration:
+                                        Duration(milliseconds: 100),
+                                    child: Icon(LineIcons.wifi),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("No internet access")
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                        return Container();
+                      },
                     )
+                        // Column(
+                        //   children: [
+                        //     Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //       children: [
+                        //         cardCategorizedMedia(
+                        //             title: "Exemple", category: "Video"),
+                        //         cardCategorizedMedia(
+                        //             title: "Exemple", category: "Video"),
+                        //       ],
+                        //     ),
+                        //     Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //       children: [
+                        //         cardCategorizedMedia(
+                        //             title: "Exemple", category: "Video"),
+                        //         cardCategorizedMedia(
+                        //             title: "Exemple", category: "Video"),
+                        //       ],
+                        //     ),
+                        //     Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //       children: [
+                        //         cardCategorizedMedia(
+                        //             title: "Exemple", category: "Video"),
+                        //         cardCategorizedMedia(
+                        //             title: "Exemple", category: "Video"),
+                        //       ],
+                        //     ),
+                        //   ],
+                        // ),
+                        )
                     // GridView.count(
                     //   crossAxisCount: 2,
                     //   children: [
