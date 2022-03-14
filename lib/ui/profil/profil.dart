@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:okonect/ui/profil/videos/videoUser.dart';
 
 class ProfilScreen extends StatefulWidget {
   const ProfilScreen({Key? key}) : super(key: key);
@@ -72,21 +73,28 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   elevation: 1,
-                                  child: Container(
-                                    height: 80,
-                                    width: 80,
-                                    padding: EdgeInsets.all(8),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Icon(
-                                          LineIcons.video,
-                                          color: Colors.deepOrange,
-                                          size: 30,
-                                        ),
-                                        Text("Vidéos")
-                                      ],
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (ctx) => VideoUser()));
+                                    },
+                                    child: Container(
+                                      height: 80,
+                                      width: 80,
+                                      padding: EdgeInsets.all(8),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Icon(
+                                            LineIcons.video,
+                                            color: Colors.deepOrange,
+                                            size: 30,
+                                          ),
+                                          Text("Vidéos")
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
