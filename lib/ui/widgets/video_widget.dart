@@ -104,6 +104,105 @@ Widget cardVideo(
   );
 }
 
+Widget cardCategorizedMedia(
+    {required String title, String? category, String? image, var onPressed}) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: InkWell(
+      onTap: onPressed,
+      child: Container(
+        height: 160,
+        width: 130,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            // image: AssetImage('$image')
+            image: image == null || image.isEmpty
+                ? AssetImage('assets/images/video.png')
+                : CachedNetworkImageProvider('$image') as ImageProvider,
+            // CachedNetworkImage(
+            //     imageUrl: '$image',
+            //     placeholder: (ctx, url) => Shimmer.fromColors(
+            //       child: Container(
+            //         height: 100,
+            //         width: 100,
+            //         decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(10),
+            //             color: Colors.white),
+            //       ),
+            //       baseColor: Color.fromARGB(255, 231, 230, 230),
+            //       highlightColor: Color.fromARGB(255, 245, 244, 244),
+            //     ),
+            //     errorWidget: (ctx, url, e) => Image(
+            //       image: Svg('assets/images/video.svg'),
+            //     ),
+            //   ) as ImageProvider
+          ),
+          border: image == null
+              ? Border.all(color: Color.fromARGB(255, 207, 205, 205))
+              : null,
+          borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.center,
+              colors: [Colors.black, Colors.transparent]),
+        ),
+        child: Stack(
+          children: [
+            Positioned(
+                top: 100,
+                child: Container(
+                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 10),
+                  height: 60,
+                  width: 130,
+                  alignment: Alignment.bottomCenter,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.black26, Colors.black]),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        title.length <= 12
+                            ? "$title"
+                            : "${title.substring(0, 11)}...",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            LineIcons.chevronCircleRight,
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "$category",
+                            style:
+                                TextStyle(color: Colors.white70, fontSize: 12),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 Widget cardShimmerVideo() {
   return Padding(
     padding: const EdgeInsets.all(8.0),
