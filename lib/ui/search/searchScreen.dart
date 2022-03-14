@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:okonect/ui/widgets/video_widget.dart';
 import 'package:okonect/ui/widgets/widgets.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -34,7 +35,59 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           Container(
             height: MediaQuery.of(context).size.height / 1.5,
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(10),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10),
+                  Text(
+                    "Film",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                    height: 180,
+                    width: double.infinity,
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children: List.generate(4, (index) => cardShimmerVideo()),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Video",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                    height: 180,
+                    width: double.infinity,
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children: List.generate(4, (index) => cardShimmerVideo()),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Audio",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                    height: 180,
+                    width: double.infinity,
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children: List.generate(4, (index) => cardShimmerVideo()),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  )
+                ],
+              ),
+            ),
           ),
         ]),
       ),
