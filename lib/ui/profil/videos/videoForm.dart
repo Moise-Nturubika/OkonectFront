@@ -124,6 +124,9 @@ class _VideoFormState extends State<VideoForm> {
                 });
               },
             ),
+            SizedBox(
+              height: 20,
+            ),
             button(label: "Enregistrer", onPressed: () {})
           ],
         ),

@@ -284,7 +284,7 @@ class CustomTextField extends StatelessWidget {
 
 Widget button({String? label, var onPressed}) {
   return Container(
-    padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+    padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
     width: double.infinity,
     child: RaisedButton(
       padding: EdgeInsets.all(12.0),
