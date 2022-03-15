@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:okonect/ui/profil/videos/videoForm.dart';
 import 'package:okonect/ui/widgets/video_widget.dart';
 
 class VideoUser extends StatefulWidget {
@@ -20,7 +21,10 @@ class _VideoUserState extends State<VideoUser> {
         backgroundColor: Colors.deepOrange,
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: null,
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (ctx) => VideoForm()));
+          },
           backgroundColor: Colors.deepOrange,
           child: Icon(LineIcons.photoVideo)),
       body: SingleChildScrollView(

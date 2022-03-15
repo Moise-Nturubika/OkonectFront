@@ -342,49 +342,61 @@ Widget tileVideoUser() {
         padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
         width: double.infinity,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: 80,
-              width: 60,
-              decoration: BoxDecoration(
-                  // color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(5),
-                  border:
-                      Border.all(color: Color.fromARGB(255, 216, 214, 214))),
-            ),
-            SizedBox(
-              width: 25,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+            Row(
               children: [
-                Text("Titre du media",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                Container(
+                  height: 80,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      // color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                          color: Color.fromARGB(255, 216, 214, 214))),
+                ),
                 SizedBox(
-                  height: 5,
+                  width: 25,
                 ),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(LineIcons.play, color: Colors.orange, size: 20),
-                    Text(
-                      "Type de media",
-                      style: TextStyle(fontWeight: FontWeight.w200),
+                    Text("Titre du media",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18)),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Icon(LineIcons.play, color: Colors.orange, size: 20),
+                        Text(
+                          "Type de media",
+                          style: TextStyle(fontWeight: FontWeight.w200),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(LineIcons.calendar,
+                            color: Colors.orange, size: 20),
+                        Text(
+                          "2022-03-23",
+                          style: TextStyle(fontWeight: FontWeight.w200),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-                Row(
-                  children: [
-                    Icon(LineIcons.calendar, color: Colors.orange, size: 20),
-                    Text(
-                      "2022-03-23",
-                      style: TextStyle(fontWeight: FontWeight.w200),
-                    ),
-                  ],
-                ),
+                )
               ],
-            )
+            ),
+            IconButton(
+                onPressed: null,
+                icon: Icon(
+                  LineIcons.trash,
+                  color: Colors.red,
+                ))
           ],
         ),
       ),

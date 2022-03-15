@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -186,4 +187,99 @@ Widget listShimmerRecentAdd() {
 
 showToast({String? msg}) {
   return Fluttertoast.showToast(msg: "$msg");
+}
+
+class CustomTextField extends StatelessWidget {
+  final hintText;
+  final VoidCallback? onPressed;
+  final controler;
+  final margeText;
+  final textInputType;
+  final readOnly;
+  final title;
+  final focusrequest;
+  final isobscure;
+  final child;
+
+  const CustomTextField({
+    Key? key,
+    this.hintText,
+    this.onPressed,
+    this.controler,
+    this.margeText,
+    this.textInputType,
+    this.readOnly = false,
+    this.title,
+    this.focusrequest,
+    this.isobscure = false,
+    this.child,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(0),
+          color: Colors.grey[50],
+          border: Border.all(
+            color: Color.fromARGB(255, 245, 245, 245),
+            width: 1,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: GoogleFonts.dmSans(color: Colors.black),
+              ),
+              child == null
+                  ? TextFormField(
+                      obscureText: isobscure,
+                      focusNode: focusrequest,
+                      readOnly: readOnly,
+                      keyboardType: textInputType,
+                      maxLines: margeText != null ? margeText : 1,
+                      controller: controler,
+                      onChanged: (value) {},
+                      style: GoogleFonts.dmSans(
+                          fontSize: 13,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: hintText,
+                        enabledBorder: outlineBorder(
+                            color: Color.fromARGB(255, 250, 250, 250)),
+                        focusedBorder:
+                            outlineBorder(color: Colors.blue.shade900),
+                        hintStyle: TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey.withOpacity(0.3),
+                        ),
+                      ),
+                      cursorColor: Colors.blue.shade900,
+                      onTap: onPressed,
+                    )
+                  : child,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+OutlineInputBorder outlineBorder({required Color color}) {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(0),
+    gapPadding: 0,
+    borderSide: BorderSide(
+      color: color,
+      width: 1,
+    ),
+  );
 }
