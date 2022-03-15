@@ -281,3 +281,25 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
+
+Widget button({String? label, var onPressed}) {
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+    width: double.infinity,
+    child: RaisedButton(
+      padding: EdgeInsets.all(12.0),
+      // shape: StadiumBorder(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "$label",
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
+      color: Colors.deepOrange,
+      onPressed: onPressed,
+    ),
+  );
+}
