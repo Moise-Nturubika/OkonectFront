@@ -23,8 +23,14 @@ class _VideoFormState extends State<VideoForm> {
           children: [
             CustomTextField(
               hintText: "Entrer le titre du media",
-              title: "Titire",
-            )
+              title: "Titre",
+              margeText: 1,
+            ),
+            CustomTextField(
+              hintText: "Entrer l'auteur du media",
+              title: "Auteur",
+              margeText: 1,
+            ),
           ],
         ),
       ),

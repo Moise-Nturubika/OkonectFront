@@ -206,7 +206,7 @@ class CustomTextField extends StatelessWidget {
     this.hintText,
     this.onPressed,
     this.controler,
-    this.margeText,
+    this.margeText = 1,
     this.textInputType,
     this.readOnly = false,
     this.title,
@@ -218,31 +218,32 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(0),
-          color: Colors.grey[50],
-          border: Border.all(
-            color: Color.fromARGB(255, 245, 245, 245),
-            width: 1,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: GoogleFonts.dmSans(color: Colors.black),
-              ),
-              child == null
-                  ? TextFormField(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: GoogleFonts.dmSans(color: Colors.black),
+            ),
+            child == null
+                ? Container(
+                    padding: EdgeInsets.only(left: 8, right: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(0),
+                      color: Colors.grey[50],
+                      border: Border.all(
+                        color: Color.fromARGB(255, 196, 195, 195),
+                        width: 1,
+                      ),
+                    ),
+                    child: TextFormField(
                       obscureText: isobscure,
                       focusNode: focusrequest,
                       readOnly: readOnly,
                       keyboardType: textInputType,
-                      maxLines: margeText != null ? margeText : 1,
+                      maxLines: !isobscure ? margeText : 1,
                       controller: controler,
                       onChanged: (value) {},
                       style: GoogleFonts.dmSans(
@@ -250,36 +251,16 @@ class CustomTextField extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.w500),
                       decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: hintText,
-                        enabledBorder: outlineBorder(
-                            color: Color.fromARGB(255, 250, 250, 250)),
-                        focusedBorder:
-                            outlineBorder(color: Colors.blue.shade900),
-                        hintStyle: TextStyle(
-                          fontSize: 15,
-                          color: Colors.grey.withOpacity(0.3),
-                        ),
-                      ),
-                      cursorColor: Colors.blue.shade900,
+                          border: InputBorder.none,
+                          hintText: hintText,
+                          prefixIcon: Icon(LineIcons.edit)),
                       onTap: onPressed,
-                    )
-                  : child,
-            ],
-          ),
+                    ),
+                  )
+                : child,
+          ],
         ),
       ),
     );
   }
-}
-
-OutlineInputBorder outlineBorder({required Color color}) {
-  return OutlineInputBorder(
-    borderRadius: BorderRadius.circular(0),
-    gapPadding: 0,
-    borderSide: BorderSide(
-      color: color,
-      width: 1,
-    ),
-  );
 }
