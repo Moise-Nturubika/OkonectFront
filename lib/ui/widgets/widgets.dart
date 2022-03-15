@@ -253,11 +253,28 @@ class CustomTextField extends StatelessWidget {
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: hintText,
+                          hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 216, 214, 214)),
                           prefixIcon: Icon(LineIcons.edit)),
                       onTap: onPressed,
                     ),
                   )
-                : child,
+                : Container(
+                    padding: EdgeInsets.only(left: 8, right: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(0),
+                      color: Colors.grey[50],
+                      border: Border.all(
+                        color: Color.fromARGB(255, 196, 195, 195),
+                        width: 1,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(LineIcons.edit, color: Colors.grey),
+                        child
+                      ],
+                    )),
           ],
         ),
       ),
