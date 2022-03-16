@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:okonect/models/category/category.dart';
+import 'package:okonect/models/client/client.dart';
+import 'package:okonect/models/media/media.dart';
+import 'package:okonect/providers/dataProvider.dart';
 import 'package:okonect/ui/widgets/widgets.dart';
 
 class VideoForm extends StatefulWidget {
@@ -127,7 +131,27 @@ class _VideoFormState extends State<VideoForm> {
             SizedBox(
               height: 20,
             ),
-            button(label: "Enregistrer", onPressed: () {})
+            button(
+                label: "Enregistrer",
+                onPressed: () {
+                  DataApiProvider apiProvider = new DataApiProvider();
+                  Media media = new Media(
+                    title: ctrlTitre.text,
+                    auteur: ctrlAuteur.text,
+                    category: new Category(id: 1, designation: "Film"),
+                    client: new Client(id: 1, fullname: "Moise Nturubika"),
+                  );
+
+                  apiProvider
+                      .saveMedia(media: media, poster: _image, fichier: _video)
+                      .then((value) {
+                    if (value.status == true) {
+                      print("Saved succefully");
+                    } else {
+                      print("Error occured : ${value.message}");
+                    }
+                  });
+                })
           ],
         ),
       ),

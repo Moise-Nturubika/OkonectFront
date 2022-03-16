@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:okonect/models/category/category.dart';
 import 'package:okonect/models/media/media.dart';
+import 'package:okonect/models/result.dart';
 import 'package:okonect/ui/widgets/widgets.dart';
+import 'package:path/path.dart' as pathLib;
 import 'package:http/http.dart' as http;
+import 'package:async/async.dart' as async;
 
 class DataApiProvider {
   static const mainUrl = "http://192.168.5.29:8000/api";
@@ -103,7 +107,43 @@ class DataApiProvider {
     return medias;
   }
 
-  // Future<Category> fetchCategory({required String id}) async{
+  Future<Result> saveMedia({
+    required Media media,
+    required File poster,
+    required File fichier,
+  }) async {
+    var url = Uri.parse(Uri.encodeFull('$mainUrl/media/all/save'));
+    var request = new http.MultipartRequest("POST", url);
+    request.fields['title'] = "${media.title}";
+    request.fields['auteur'] = "${media.auteur}";
+    request.fields['refCategory'] = "${media.category?.id}";
+    request.fields['refClient'] = "1";
+    var imageStream =
+        new http.ByteStream(async.DelegatingStream.typed(poster.openRead()));
+    var imgLength = await poster.length();
 
-  // }
+    request.files.add(http.MultipartFile("poster", imageStream, imgLength,
+        filename: pathLib.basename(poster.path)));
+    request.files.add(await http.MultipartFile.fromPath("file", fichier.path));
+
+    var insertResponse;
+    request.send().then((value) {
+      http.Response.fromStream(value).then((value) {
+        insertResponse = value;
+        print("Body : ${value.body}");
+      }).catchError((e) {
+        print("Error stream : ${e.toString()}");
+      });
+    }).catchError((e) {
+      print("Error send : ${e.toString()}");
+    });
+
+    if (insertResponse.statusCode != 200) {
+      throw Exception(
+          'error saving save page data : ${insertResponse.toString()}');
+    }
+
+    final json = jsonDecode(insertResponse.body);
+    return Result.fromJson(json);
+  }
 }
