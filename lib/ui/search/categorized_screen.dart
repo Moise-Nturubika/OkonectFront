@@ -392,7 +392,19 @@ class _CategoryMediaState extends State<CategoryMedia> {
                 padding: EdgeInsets.only(left: 15, right: 15),
                 child: textField(textHint: ""),
               ),
-            )
+            ),
+            Positioned(
+              top: 20,
+              left: 5,
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  )),
+            ),
           ],
         ),
       ),

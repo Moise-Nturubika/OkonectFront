@@ -339,28 +339,34 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                     if (state is BlocStateError) {
-                      return Center(
-                        child: Container(
-                          child: Column(
-                            children: [
-                              AvatarGlow(
-                                glowColor: Colors.blue,
-                                endRadius: 50.0,
-                                duration: Duration(milliseconds: 2000),
-                                repeat: true,
-                                showTwoGlows: true,
-                                repeatPauseDuration:
-                                    Duration(milliseconds: 100),
-                                child: Icon(LineIcons.wifi),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text("No internet access")
-                            ],
-                          ),
-                        ),
+                      return ListView(
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        children:
+                            List.generate(4, (index) => cardShimmerCategory()),
                       );
+                      // return Center(
+                      //   child: Container(
+                      //     child: Column(
+                      //       children: [
+                      //         AvatarGlow(
+                      //           glowColor: Colors.blue,
+                      //           endRadius: 50.0,
+                      //           duration: Duration(milliseconds: 2000),
+                      //           repeat: true,
+                      //           showTwoGlows: true,
+                      //           repeatPauseDuration:
+                      //               Duration(milliseconds: 100),
+                      //           child: Icon(LineIcons.wifi),
+                      //         ),
+                      //         SizedBox(
+                      //           height: 5,
+                      //         ),
+                      //         Text("No internet access")
+                      //       ],
+                      //     ),
+                      //   ),
+                      // );
                     }
                     if (state is BlocStateLoaded) {
                       return ListView(

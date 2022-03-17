@@ -15,7 +15,7 @@ Result _$ResultFromJson(Map<String, dynamic> json) {
   return Result(
       message: json['message'] as String,
       status: json['status'] as bool,
-      data: json['data'] as Map);
+      data: json['data'] == null ? null : json['data'] as Map);
 }
 
 Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
