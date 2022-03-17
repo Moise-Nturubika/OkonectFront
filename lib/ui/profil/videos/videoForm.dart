@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
@@ -41,6 +40,15 @@ class _VideoFormState extends State<VideoForm> {
       child: Text("Music"),
       value: "2",
     ));
+  }
+
+  _initialiseFields() {
+    ctrlTitre.clear();
+    ctrlAuteur.clear();
+    ctrlPoster.clear();
+    ctrlTitre.clear();
+    _image = null;
+    _video = null;
   }
 
   @override
@@ -155,6 +163,7 @@ class _VideoFormState extends State<VideoForm> {
                               color: Colors.green,
                               msg: value.message.toString(),
                               icon: LineIcons.checkCircle));
+                      _initialiseFields();
                     } else {
                       showDialog(
                           context: context,

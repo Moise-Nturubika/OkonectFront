@@ -1,6 +1,8 @@
 abstract class BlocEvent {}
 
 class BlocEventMediaFetch extends BlocEvent {
+  final String? data;
+  BlocEventMediaFetch({this.data});
   @override
   String toString() => 'BlocEventMediaFetch';
 }

@@ -104,16 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               left: 12,
                               child: InkWell(
                                 splashColor: Colors.deepOrange,
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      barrierDismissible: true,
-                                      builder: (context) => alertDialog(
-                                          context: context,
-                                          color: Colors.green,
-                                          msg: "Media saved succefully",
-                                          icon: LineIcons.checkCircle));
-                                },
+                                onTap: () {},
                                 child: Container(
                                   height: 18,
                                   width: 18,

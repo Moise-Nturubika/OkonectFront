@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:okonect/models/media/media.dart';
 import 'package:shimmer/shimmer.dart';
 
 Widget cardVideo(
@@ -333,7 +334,7 @@ Widget cardShimmerVideo() {
   );
 }
 
-Widget tileVideoUser() {
+Widget tileVideoUser({required Media media}) {
   return Padding(
     padding: EdgeInsets.only(top: 10, left: 10, right: 10),
     child: Card(
@@ -351,6 +352,13 @@ Widget tileVideoUser() {
                   width: 60,
                   decoration: BoxDecoration(
                       // color: Colors.grey[200],
+                      image: DecorationImage(
+                        image: media.poster == null
+                            ? AssetImage('assets/images/video.png')
+                            : CachedNetworkImageProvider(
+                                '${media.poster}',
+                              ) as ImageProvider,
+                      ),
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
                           color: Color.fromARGB(255, 216, 214, 214))),
@@ -362,7 +370,8 @@ Widget tileVideoUser() {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Titre du media",
+                    Text("${media.title}",
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18)),
                     SizedBox(
@@ -372,7 +381,7 @@ Widget tileVideoUser() {
                       children: [
                         Icon(LineIcons.play, color: Colors.orange, size: 20),
                         Text(
-                          "Type de media",
+                          "${media.category?.designation}",
                           style: TextStyle(fontWeight: FontWeight.w200),
                         ),
                       ],
@@ -382,7 +391,7 @@ Widget tileVideoUser() {
                         Icon(LineIcons.calendar,
                             color: Colors.orange, size: 20),
                         Text(
-                          "2022-03-23",
+                          "${media.dateAjout?.substring(0, 10)}",
                           style: TextStyle(fontWeight: FontWeight.w200),
                         ),
                       ],
@@ -397,6 +406,87 @@ Widget tileVideoUser() {
                   LineIcons.trash,
                   color: Colors.red,
                 ))
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget tileVideoShimmer() {
+  return Padding(
+    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+    child: Card(
+      child: Container(
+        height: 100,
+        padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Shimmer.fromColors(
+                  baseColor: Color.fromARGB(255, 231, 230, 230),
+                  highlightColor: Color.fromARGB(255, 245, 244, 244),
+                  child: Container(
+                    height: 80,
+                    width: 60,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 216, 214, 214))),
+                  ),
+                ),
+                SizedBox(
+                  width: 25,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Shimmer.fromColors(
+                      baseColor: Color.fromARGB(255, 231, 230, 230),
+                      highlightColor: Color.fromARGB(255, 245, 244, 244),
+                      child: Container(
+                        width: 150,
+                        height: 20,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Shimmer.fromColors(
+                      baseColor: Color.fromARGB(255, 231, 230, 230),
+                      highlightColor: Color.fromARGB(255, 245, 244, 244),
+                      child: Container(
+                        height: 10,
+                        width: 120,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5)),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Shimmer.fromColors(
+                      baseColor: Color.fromARGB(255, 231, 230, 230),
+                      highlightColor: Color.fromARGB(255, 245, 244, 244),
+                      child: Container(
+                        height: 10,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5)),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ],
         ),
       ),
