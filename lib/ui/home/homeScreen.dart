@@ -102,18 +102,31 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Positioned(
                               left: 12,
-                              child: Container(
-                                height: 18,
-                                width: 18,
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(100)),
-                                child: Text(
-                                  "3",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 10),
+                              child: InkWell(
+                                splashColor: Colors.deepOrange,
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (context) => alertDialog(
+                                          context: context,
+                                          color: Colors.green,
+                                          msg: "Media saved succefully",
+                                          icon: LineIcons.checkCircle));
+                                },
+                                child: Container(
+                                  height: 18,
+                                  width: 18,
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(100)),
+                                  child: Text(
+                                    "3",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 10),
+                                  ),
                                 ),
                               ),
                             )

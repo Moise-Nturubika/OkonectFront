@@ -303,3 +303,53 @@ Widget button({String? label, var onPressed}) {
     ),
   );
 }
+
+Widget alertDialog(
+    {required BuildContext context,
+    required IconData icon,
+    required String msg,
+    required Color color}) {
+  return Center(
+      child: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+        // successTicket(ctx,isExpediteur,clientToSearch,txt)
+        Container(
+            width: double.infinity,
+            height: 250,
+            padding: const EdgeInsets.all(20.0),
+            child: Material(
+                clipBehavior: Clip.antiAlias,
+                elevation: 2.0,
+                borderRadius: BorderRadius.circular(10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Icon(
+                      icon,
+                      color: color,
+                      size: 45,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "$msg",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w300, fontSize: 20),
+                    ),
+                    SizedBox(height: 15),
+                    OutlinedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          "OK",
+                          style: TextStyle(fontSize: 18),
+                        ))
+                  ],
+                )))
+      ])));
+}

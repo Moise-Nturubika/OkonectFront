@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:okonect/models/category/category.dart';
 import 'package:okonect/models/client/client.dart';
 import 'package:okonect/models/media/media.dart';
@@ -146,9 +147,23 @@ class _VideoFormState extends State<VideoForm> {
                       .saveMedia(media: media, poster: _image, fichier: _video)
                       .then((value) {
                     if (value.status == true) {
-                      print("Saved succefully");
+                      showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (context) => alertDialog(
+                              context: context,
+                              color: Colors.green,
+                              msg: value.message.toString(),
+                              icon: LineIcons.checkCircle));
                     } else {
-                      print("Error occured : ${value.message}");
+                      showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (context) => alertDialog(
+                              context: context,
+                              color: Colors.red,
+                              msg: value.message.toString(),
+                              icon: LineIcons.exclamationCircle));
                     }
                   });
                 })
