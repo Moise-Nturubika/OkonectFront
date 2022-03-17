@@ -118,15 +118,13 @@ class DataApiProvider {
     request.fields['auteur'] = "${media.auteur}";
     request.fields['refCategory'] = "${media.category?.id}";
     request.fields['refClient'] = "1";
-    // var imageStream =
-    //     new http.ByteStream(async.DelegatingStream.typed(poster.openRead()));
-    // var imgLength = await poster.length();
-
     request.files.add(await http.MultipartFile.fromPath('poster', poster.path));
-
-    // request.files.add(http.MultipartFile("poster", imageStream, imgLength,
-    //     filename: pathLib.basename(poster.path)));
     request.files.add(await http.MultipartFile.fromPath("file", fichier.path));
+    var imageStream =
+        new http.ByteStream(async.DelegatingStream.typed(poster.openRead()));
+    var imgLength = await poster.length();
+    request.files.add(http.MultipartFile("poster", imageStream, imgLength,
+        filename: pathLib.basename(poster.path)));
 
     http.StreamedResponse insertResponse = await request.send();
 
