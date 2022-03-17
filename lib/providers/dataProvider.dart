@@ -118,32 +118,24 @@ class DataApiProvider {
     request.fields['auteur'] = "${media.auteur}";
     request.fields['refCategory'] = "${media.category?.id}";
     request.fields['refClient'] = "1";
-    var imageStream =
-        new http.ByteStream(async.DelegatingStream.typed(poster.openRead()));
-    var imgLength = await poster.length();
+    // var imageStream =
+    //     new http.ByteStream(async.DelegatingStream.typed(poster.openRead()));
+    // var imgLength = await poster.length();
 
-    request.files.add(http.MultipartFile("poster", imageStream, imgLength,
-        filename: pathLib.basename(poster.path)));
+    request.files.add(await http.MultipartFile.fromPath('poster', poster.path));
+
+    // request.files.add(http.MultipartFile("poster", imageStream, imgLength,
+    //     filename: pathLib.basename(poster.path)));
     request.files.add(await http.MultipartFile.fromPath("file", fichier.path));
 
-    var insertResponse;
-    request.send().then((value) {
-      http.Response.fromStream(value).then((value) {
-        insertResponse = value;
-        print("Body : ${value.body}");
-      }).catchError((e) {
-        print("Error stream : ${e.toString()}");
-      });
-    }).catchError((e) {
-      print("Error send : ${e.toString()}");
-    });
+    http.StreamedResponse insertResponse = await request.send();
 
     if (insertResponse.statusCode != 200) {
       throw Exception(
-          'error saving save page data : ${insertResponse.toString()}');
+          'error saving save page data : ${insertResponse.stream.toString()}');
     }
 
-    final json = jsonDecode(insertResponse.body);
+    final json = jsonDecode(await insertResponse.stream.bytesToString());
     return Result.fromJson(json);
   }
 }
