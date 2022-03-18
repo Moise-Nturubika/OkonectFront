@@ -117,11 +117,8 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 
   Future<void> initializePlayer() async {
-    print("------------------------------------------------");
-    print("${widget.media.file}");
     _videoPlayerController =
         VideoPlayerController.network('${widget.media.file}');
-    // VideoPlayerController.asset('assets/video/videoTest.mp4');
     await Future.wait([_videoPlayerController.initialize()]);
     _createChewieController();
     setState(() {});
@@ -147,17 +144,6 @@ class _VideoScreenState extends State<VideoScreen> {
           ),
         ];
       },
-      // subtitleBuilder: (context, dynamic subtitle) => Container(
-      //   padding: const EdgeInsets.all(10.0),
-      //   child: subtitle is InlineSpan
-      //       ? RichText(
-      //           text: subtitle,
-      //         )
-      //       : Text(
-      //           subtitle.toString(),
-      //           style: const TextStyle(color: Colors.black),
-      //         ),
-      // ),
     );
   }
 
@@ -426,41 +412,6 @@ class _VideoScreenState extends State<VideoScreen> {
                                               builder: (ctx) => VideoScreen(
                                                   media: state.data[index])));
                                     })),
-                            // children: [
-                            // cardVideo(
-                            //     title: 'CASA DE PAPEL',
-                            //     category: 'Série',
-                            //     image: 'assets/images/casa.jpg',
-                            //     onPressed: () {
-                            //       Navigator.of(context).push(MaterialPageRoute(
-                            //           builder: (ctx) => VideoScreen()));
-                            //     }),
-                            // cardVideo(
-                            //     title: 'SPIDER MAN',
-                            //     category: 'Film',
-                            //     image: 'assets/images/spiderman.jpg',
-                            //     onPressed: () {}),
-                            // cardVideo(
-                            //     title: 'GAME OF THRONE',
-                            //     category: 'Série',
-                            //     image: 'assets/images/got.jpg',
-                            //     onPressed: () {}),
-                            // cardVideo(
-                            //     title: 'ACHOUR',
-                            //     category: 'Music',
-                            //     image: 'assets/images/achour.jpg',
-                            //     onPressed: () {}),
-                            // cardVideo(
-                            //     title: 'PEAKY BLINDERS',
-                            //     category: 'Série',
-                            //     image: 'assets/images/peaky.jpg',
-                            //     onPressed: () {}),
-                            // cardVideo(
-                            //     title: 'SNAKE EYES',
-                            //     category: 'Film',
-                            //     image: 'assets/images/snakeeyes.jpg',
-                            //     onPressed: () {}),
-                            // ],
                           );
                         }
                         return Container();
