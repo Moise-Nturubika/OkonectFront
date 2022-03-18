@@ -273,6 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (state is BlocStateLoaded) {
                         return ListView(
                           scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
                           children: List.generate(
                               state.data.length,
                               (index) => cardVideo(
