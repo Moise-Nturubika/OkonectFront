@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:okonect/providers/statics.dart';
 import 'package:okonect/ui/home/MainScreen.dart';
 import 'package:okonect/ui/home/homeScreen.dart';
 import 'package:okonect/ui/introScreen/splashScreen.dart';
 
-const debug = true;
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(debug: debug);
+  await FlutterDownloader.initialize(debug: MyStatics.debug);
   runApp(MyApp());
 }
 

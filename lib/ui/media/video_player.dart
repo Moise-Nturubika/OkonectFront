@@ -13,6 +13,7 @@ import 'package:okonect/bloc/bloc_event.dart';
 import 'package:okonect/bloc/block_state.dart';
 import 'package:okonect/bloc/media/media_bloc.dart';
 import 'package:okonect/models/media/media.dart';
+import 'package:okonect/providers/statics.dart';
 import 'package:okonect/ui/media/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:okonect/ui/widgets/video_widget.dart';
@@ -83,10 +84,22 @@ class _VideoScreenState extends State<VideoScreen> {
     IsolateNameServer.removePortNameMapping('downloader_send_port');
   }
 
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    if (MyStatics.debug) {
+      print(
+          'Background Isolate Callback: task ($id) is in status ($status) and process ($progress)');
+    }
+    final SendPort send =
+        IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    send.send([id, status, progress]);
+  }
+
   @override
   void dispose() {
     _videoPlayerController.dispose();
     _chewieController?.dispose();
+    _unbindBackgroundIsolate();
     super.dispose();
   }
 
@@ -94,7 +107,13 @@ class _VideoScreenState extends State<VideoScreen> {
     _bloc = new MediaBloc();
     _bloc.add(
         BlocEventSameCategoryFetch(category: "${widget.media.category?.id}"));
+    _task = new _TaskInfo(
+      name: widget.media.title,
+      link: widget.media.file,
+    );
     _prepareSaveDir();
+    _bindBackgroundIsolate();
+    FlutterDownloader.registerCallback(downloadCallback);
   }
 
   Future<void> initializePlayer() async {
@@ -236,7 +255,7 @@ class _VideoScreenState extends State<VideoScreen> {
                                       percentage: _task.progress! / 100,
                                       width: 40,
                                       radius: 40,
-                                      child: Text('60%',
+                                      child: Text('${_task.progress! / 100}%',
                                           style: TextStyle(
                                               fontSize: 5,
                                               fontWeight: FontWeight.bold)),
@@ -266,7 +285,10 @@ class _VideoScreenState extends State<VideoScreen> {
                                       _cancelDownload(task: _task);
                                     });
                                   },
-                                  icon: Icon(LineIcons.windowClose)),
+                                  icon: Icon(
+                                    LineIcons.windowClose,
+                                    color: Colors.red[900],
+                                  )),
                             ],
                           )
                         : Container(
@@ -278,10 +300,6 @@ class _VideoScreenState extends State<VideoScreen> {
                                 onPressed: () {
                                   setState(() {
                                     _isDownloading = !_isDownloading;
-                                    _task = new _TaskInfo(
-                                      name: widget.media.title,
-                                      link: widget.media.file,
-                                    );
                                     if (_task.status ==
                                         DownloadTaskStatus.undefined) {
                                       _requestDownload(task: _task);
@@ -483,13 +501,16 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 
   void _delete(_TaskInfo task) async {
+    print("Deleting download...");
     await FlutterDownloader.remove(
         taskId: task.taskId!, shouldDeleteContent: true);
     // await _prepare();
     setState(() {});
+    print("Download deleted succefully...");
   }
 
   void _requestDownload({required _TaskInfo task}) async {
+    print("Requesting download...");
     task.taskId = await FlutterDownloader.enqueue(
       url: task.link!,
       headers: {"auth": "test_for_sql_encoding"},
@@ -498,15 +519,18 @@ class _VideoScreenState extends State<VideoScreen> {
       openFileFromNotification: true,
       saveInPublicStorage: true,
     );
+    print("Download launch succeffully........");
   }
 
   Future<void> _prepareSaveDir() async {
+    print("Preparing save directory...");
     _localPath = (await _findLocalPath())!;
     final savedDir = Directory(_localPath);
     bool hasExisted = await savedDir.exists();
     if (!hasExisted) {
       savedDir.create();
     }
+    print("${savedDir.path} as created succefully....");
   }
 
   Future<String?> _findLocalPath() async {
