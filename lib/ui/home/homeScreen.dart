@@ -111,6 +111,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.all(2),
                                   decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 10,
+                                          style: BorderStyle.none,
+                                          color: Color.fromARGB(
+                                              255, 226, 226, 226)),
                                       color: Colors.red,
                                       borderRadius: BorderRadius.circular(100)),
                                   child: Text(
