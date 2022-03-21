@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:okonect/ui/widgets/delayed_animation.dart';
 import 'package:okonect/ui/widgets/widgets.dart';
 
@@ -17,10 +18,11 @@ class _LoginScreenState extends State<LoginScreen> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
+                begin: Alignment.topCenter,
                 end: Alignment.center,
                 colors: [Colors.deepOrange, Colors.white])),
         child: Container(
+          padding: EdgeInsets.all(20),
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +40,19 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 20,
               ),
-              textField(textHint: "Nom d'utilisateur")
+              cardTextField(
+                  hintText: "Numero de telephone",
+                  icon: LineIcons.phone,
+                  textInputType: TextInputType.number),
+              SizedBox(
+                height: 15,
+              ),
+              cardTextField(
+                  hintText: "Mot de passe",
+                  icon: LineIcons.key,
+                  textInputType: TextInputType.text,
+                  isObscur: true),
+              // text(textHint: "Nom d'utilisateur")
             ],
           ),
         ),

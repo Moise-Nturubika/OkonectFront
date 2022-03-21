@@ -39,13 +39,6 @@ class _SplashScreenState extends State<SplashScreen> {
                           height: 200,
                           width: 200,
                           child: Image.asset('assets/images/logo.png')),
-                      // Text("Action",
-                      //     style: GoogleFonts.lobster(
-                      //       textStyle: TextStyle(
-                      //           fontSize: 35,
-                      //           fontWeight: FontWeight.bold,
-                      //           color: Colors.blue[900]),
-                      //     )),
                     ],
                   ))),
         ],
