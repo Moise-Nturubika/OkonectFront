@@ -6,7 +6,8 @@ import 'package:okonect/models/result.dart';
 import 'package:http/http.dart' as http;
 
 class DataApiProvider {
-  static const mainUrl = "http://192.168.5.29:8000/api";
+  // static const mainUrl = "http://192.168.5.29:8000/api";
+  static const mainUrl = "http://192.168.43.246:8000/api";
   final http.Client httpClient = http.Client();
 
   Future<List<Media>> fetchAllMedia() async {
