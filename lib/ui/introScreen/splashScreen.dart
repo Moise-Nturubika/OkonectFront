@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:okonect/ui/home/MainScreen.dart';
+import 'package:okonect/ui/login/loginPage.dart';
 import 'package:okonect/ui/widgets/delayed_animation.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future loading() async {
     await new Future.delayed(new Duration(seconds: 5)).then((value) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (ctx) => MainPage()), (route) => false);
+          MaterialPageRoute(builder: (ctx) => LoginScreen()), (route) => false);
     });
   }
 
