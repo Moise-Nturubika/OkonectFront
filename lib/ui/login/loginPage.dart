@@ -45,55 +45,68 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 20,
               ),
-              cardTextField(
-                  hintText: "Numero de telephone",
-                  icon: LineIcons.phone,
-                  textInputType: TextInputType.number),
+              DelayedAnimation(
+                delay: 100,
+                child: cardTextField(
+                    hintText: "Numero de telephone",
+                    icon: LineIcons.phone,
+                    textInputType: TextInputType.number),
+              ),
               SizedBox(
                 height: 15,
               ),
-              cardTextField(
-                  hintText: "Mot de passe",
-                  icon: LineIcons.key,
-                  textInputType: TextInputType.text,
-                  isObscur: true),
+              DelayedAnimation(
+                delay: 100,
+                child: cardTextField(
+                    hintText: "Mot de passe",
+                    icon: LineIcons.key,
+                    textInputType: TextInputType.text,
+                    isObscur: true),
+              ),
               SizedBox(
                 height: 25,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
-                width: double.infinity,
-                child: RaisedButton(
-                  padding: EdgeInsets.all(12.0),
-                  shape: StadiumBorder(),
-                  child: Text(
-                    "CONNEXION",
-                    style: TextStyle(color: Colors.white),
+              DelayedAnimation(
+                delay: 100,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+                  width: double.infinity,
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(12.0),
+                    shape: StadiumBorder(),
+                    child: Text(
+                      "CONNEXION",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    color: Colors.deepOrange,
+                    onPressed: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (ctx) => MainPage()),
+                          (route) => false);
+                    },
                   ),
-                  color: Colors.deepOrange,
-                  onPressed: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (ctx) => MainPage()),
-                        (route) => false);
-                  },
                 ),
               ),
-              FlatButton(
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
-                color: Colors.transparent,
-                child: Container(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "CREER UN COMPTE",
-                    style: TextStyle(color: Colors.grey),
+              DelayedAnimation(
+                delay: 100,
+                child: FlatButton(
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0)),
+                  color: Colors.transparent,
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "CREER UN COMPTE",
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (ctx) => AccountScreen()));
+                  },
                 ),
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (ctx) => AccountScreen()));
-                },
               )
               // text(textHint: "Nom d'utilisateur")
             ],
