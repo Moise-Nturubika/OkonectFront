@@ -17,19 +17,11 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   var _image;
   var imagePicker;
-  late Image _img;
+  var _img;
   @override
   void initState() {
     super.initState();
     imagePicker = new ImagePicker();
-  }
-
-  Future<Image> convertFileToImage(File picture) async {
-    List<int> imageBase64 = picture.readAsBytesSync();
-    String imageAsString = base64Encode(imageBase64);
-    Uint8List uint8list = base64.decode(imageAsString);
-    Image image = Image.memory(uint8list);
-    return image;
   }
 
   _pickImageToGallery() async {
@@ -38,7 +30,7 @@ class _AccountScreenState extends State<AccountScreen> {
         source: source,
         imageQuality: 50,
         preferredCameraDevice: CameraDevice.front);
-    _img = await convertFileToImage(_image);
+    // _img = await convertFileToImage(image);
     setState(() {
       if (image.path.isNotEmpty) {
         _image = File(image.path);
@@ -68,14 +60,12 @@ class _AccountScreenState extends State<AccountScreen> {
                   Center(
                     child: Container(
                       child: CircleAvatar(
-                        child: _img == null
-                            ? Icon(LineIcons.user)
-                            : Container(
-                                height: 20,
-                                width: 20,
-                                color: Colors.red,
-                              ),
+                        child:
+                            _image == null ? Icon(LineIcons.user) : Container(),
                         backgroundColor: Colors.white,
+                        backgroundImage: _image == null
+                            ? null
+                            : FileImage(File(_image!.path)),
                         radius: 60,
                       ),
                       decoration: BoxDecoration(
