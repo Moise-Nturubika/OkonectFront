@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:okonect/ui/home/MainScreen.dart';
 import 'package:okonect/ui/login/new_account.dart';
