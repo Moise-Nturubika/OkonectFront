@@ -18,6 +18,11 @@ class _AccountScreenState extends State<AccountScreen> {
   var _image;
   var imagePicker;
   var _img;
+  final ctrlNom = new TextEditingController();
+  final ctrlPhone = new TextEditingController();
+  final ctrlPwd = new TextEditingController();
+  final ctrlConfirmPwd = new TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -94,28 +99,32 @@ class _AccountScreenState extends State<AccountScreen> {
             cardTextField(
                 hintText: "Nom complet",
                 icon: LineIcons.user,
-                textInputType: TextInputType.text),
+                textInputType: TextInputType.text,
+                controller: ctrlNom),
             SizedBox(
               height: 15,
             ),
             cardTextField(
                 hintText: "Numero de telephone",
                 icon: LineIcons.phone,
-                textInputType: TextInputType.text),
+                textInputType: TextInputType.text,
+                controller: ctrlPhone),
             SizedBox(
               height: 15,
             ),
             cardTextField(
                 hintText: "Mot de passe",
                 icon: LineIcons.lock,
-                textInputType: TextInputType.text),
+                textInputType: TextInputType.text,
+                controller: ctrlPwd),
             SizedBox(
               height: 15,
             ),
             cardTextField(
                 hintText: "Confirmation du mot de passe",
                 icon: LineIcons.lock,
-                textInputType: TextInputType.text),
+                textInputType: TextInputType.text,
+                controller: ctrlConfirmPwd),
             SizedBox(
               height: 25,
             ),

@@ -359,6 +359,7 @@ Widget cardTextField(
     required IconData icon,
     bool isObscur = false,
     bool isReadOnly = false,
+    TextEditingController? controller,
     required TextInputType textInputType}) {
   return Card(
     elevation: 3.0,
@@ -373,6 +374,7 @@ Widget cardTextField(
         keyboardType: textInputType,
         obscureText: isObscur,
         readOnly: isReadOnly,
+        controller: controller,
         style: TextStyle(
           fontSize: 15.0,
           color: Colors.black,
